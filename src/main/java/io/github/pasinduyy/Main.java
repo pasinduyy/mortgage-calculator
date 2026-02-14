@@ -1,16 +1,15 @@
 package io.github.pasinduyy;
 
 import java.text.NumberFormat;
-import java.util.Scanner;
 
 public class Main {
     final static byte MONTHS_IN_YEAR = 12;
     final static byte PERCENT = 100;
 
     public static void main(String[] args) {
-        int principal = (int) readNumber("Principal: ", 1_000, 1_000_000);
-        float annualInterest = (float) readNumber("Annual Interest Rate: ", 1, 30);
-        byte years = (byte) readNumber("Period (Years): ", 1, 30);
+        int principal = (int) Console.readNumber("Principal: ", 1_000, 1_000_000);
+        float annualInterest = (float) Console.readNumber("Annual Interest Rate: ", 1, 30);
+        byte years = (byte) Console.readNumber("Period (Years): ", 1, 30);
 
         displayMortgage(principal, annualInterest, years);
         displayPaymentSchedule(principal, annualInterest, years);
@@ -33,24 +32,6 @@ public class Main {
             double balance = calculateBalance(principal, annualInterest, years, month);
             System.out.println(NumberFormat.getCurrencyInstance().format(balance));
         }
-    }
-
-    public static double readNumber(String prompt, double min, double max) {
-        Scanner scanner = new Scanner(System.in);
-        double value;
-
-        while (true) {
-            System.out.print(prompt);
-            value = scanner.nextDouble();
-
-            if (value >= min && value <= max) {
-                break;
-            }
-
-            System.out.println("Enter a value between " + min + " and " + max);
-        }
-
-        return value;
     }
 
     public static double calculateBalance(int principal, float annualInterest, byte years, short noOfPaymentsMade) {
